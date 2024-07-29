@@ -49,17 +49,20 @@ const initialState: WeatherState = {
  * is made to fetch weather data from the OpenWeatherMap API.
  * The response data is then returned.
  */
+
 export const fetchWeather = createAsyncThunk(
   "weather/fetchWeather",
   async (city: string) => {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${
+        import.meta.env.VITE_API_KEY_WEATHER
+      }`
     );
     return response.data;
   }
 );
 
-/**
+/** 
  * 
  * Creating the Weather Slice: The weatherSlice is created using the
    createSlice function. It bundles together the reducer logic and actions 
@@ -95,4 +98,10 @@ const weatherSlice = createSlice({
   },
 });
 
+/**
+ * Note: Remember to replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key.
+ *  You can get a free one to try out on the OpenWeatherMap site.
+ */
+
 export default weatherSlice.reducer;
+export type { WeatherState };
